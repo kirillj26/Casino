@@ -1,5 +1,6 @@
 package by.belhard.BH26.kirill.casinoProject.casinoApp.service;
 
+import by.belhard.BH26.kirill.casinoProject.casinoApp.io.IOInterface;
 import by.belhard.BH26.kirill.casinoProject.casinoApp.model.Account;
 
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public interface AccountService {
 
     void getMoney(Account account, int amount) throws SQLException;
 
-    void gameToursUpdate(Account account,String gamename,String winlose) throws  SQLException;
+    void gameToursUpdate(Account account,String gamename,int winlose) throws  SQLException;
 
-    void viewMyStatistic(Account account) throws SQLException;
+    void viewStatistic(Account account, IOInterface ioInterface) throws SQLException;
 }

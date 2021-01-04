@@ -11,7 +11,15 @@ public interface AccountRepository {
 
     void updateMoney(String username, int amount) throws SQLException;
 
-    void gameToursUpdate(Account account,String gamename,String winlose) throws SQLException;
+    void gameToursUpdate(Account account,String gamename,int winlose) throws SQLException;
 
     void getStatistic(Account account) throws SQLException;
+
+    void getTtop3All() throws SQLException;
+
+    void getTtop3Gamename(String gamename) throws SQLException;
+
+
+
+
 }

@@ -21,6 +21,23 @@ public class AccountRepositoryImpl implements AccountRepository {
     private static final String GET_MY_STATISTIC_GAMETOURS =
             "select * from gametours where username=?";
 
+
+    private static final String GET_TOP3_ALL_GAMETOURS =
+            " select username,gamename,count(winlose) as  games,SUM(winlose) as totalwin \n" +
+                    "from gametours\n" +
+                    " group by username \n" +
+                    " order by totalwin desc \n" +
+                    " LIMIT 3";
+
+    private static final String GET_TOP3_GAMENAME_GAMETOURS =
+            "select username,gamename,count(winlose) as  games,SUM(winlose) as totalwin \n" +
+                    "from gametours\n" +
+                    " where  gamename=? \n" +
+                    " group by username \n" +
+                    " order by totalwin desc \n" +
+                    " LIMIT 3";
+
+
     @Override
     public Account getByName(String name) throws SQLException {
 
@@ -66,12 +83,12 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public void gameToursUpdate(Account account, String gamename, String winlose) throws SQLException {
+    public void gameToursUpdate(Account account, String gamename, int winlose) throws SQLException {
         Connection connection = ConnectionImpl.getConnection();
         PreparedStatement statement = connection.prepareStatement(INSERT_NEW_INTO_GAMETOURS);
         statement.setString(1, gamename);
         statement.setString(2, account.getUsername());
-        statement.setString(3, winlose);
+        statement.setInt(3, winlose);
         statement.executeUpdate();
 
     }
@@ -83,20 +100,63 @@ public class AccountRepositoryImpl implements AccountRepository {
         statement.setString(1, account.getUsername());
         ResultSet resultSet = statement.executeQuery();
         if (!resultSet.next())
-            throw new SQLException("No such account");
+            throw new SQLException("No such account statistic");
         System.out.printf("\t\t%-4s%-10s%-12s%-26s%-4s\n", "id", "gamename", "username", "datetime", "winlose");
 
-
-        while (resultSet.next()) {
-            System.out.printf("\t\t%-4s%-10s%-12s%-26s%-4s\n", resultSet.getInt("id"),
+        do {
+            System.out.printf("\t\t%-4s%-10s%-12s%-26s%-4s\n",
+                    resultSet.getInt("id"),
                     resultSet.getString("gamename"),
                     resultSet.getString("username"),
                     resultSet.getTimestamp("time"),
                     resultSet.getString("winlose"));
 
-        }
+        } while (resultSet.next());
 
 
     }
+
+    @Override
+    public void getTtop3All() throws SQLException {
+        Connection connection = ConnectionImpl.getConnection();
+        PreparedStatement statement = connection.prepareStatement(GET_TOP3_ALL_GAMETOURS);
+        ResultSet resultSet = statement.executeQuery();
+        if (!resultSet.next())
+            throw new SQLException("No such account statistic");
+        System.out.printf("\t\t%-12s%-10s%-10s\n", "username", "games", "totalwin");
+
+
+        do {
+            System.out.printf("\t\t%-12s%-10s%-10s\n",
+                    resultSet.getString("username"),
+                    resultSet.getString("games"),
+                    resultSet.getString("totalwin"));
+
+        } while (resultSet.next());
+
+    }
+
+    @Override
+    public void getTtop3Gamename(String gamename) throws SQLException {
+        Connection connection = ConnectionImpl.getConnection();
+        PreparedStatement statement = connection.prepareStatement(GET_TOP3_GAMENAME_GAMETOURS);
+        statement.setString(1, gamename);
+        ResultSet resultSet = statement.executeQuery();
+        if (!resultSet.next())
+            throw new SQLException("No such account statistic");
+        System.out.printf("\t\t%-12s%-10s%-10s%-10s\n", "username", "gamename", "games", "totalwin");
+
+
+        do {
+            System.out.printf("\t\t%-12s%-10s%-10s%-10s\n",
+                    resultSet.getString("username"),
+                    resultSet.getString("gamename"),
+                    resultSet.getString("games"),
+                    resultSet.getString("totalwin"));
+
+        } while (resultSet.next());
+
+    }
+
 
 }

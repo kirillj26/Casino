@@ -3,7 +3,6 @@ package by.belhard.BH26.kirill.casinoProject.casinoApp.service;
 import by.belhard.BH26.kirill.casinoProject.casinoApp.io.IOInterface;
 import by.belhard.BH26.kirill.casinoProject.casinoApp.model.Account;
 import by.belhard.BH26.kirill.casinoProject.casinoApp.service.Games.BlackJack;
-import by.belhard.BH26.kirill.casinoProject.casinoApp.service.Games.Bones;
 import by.belhard.BH26.kirill.casinoProject.casinoApp.service.Games.OB;
 import by.belhard.BH26.kirill.casinoProject.casinoApp.service.Games.Ruletka;
 
@@ -15,7 +14,7 @@ public interface GamesStart {
             "\t1. 'Odnorukiy Bandit'\n" +
                     "\t2. Ruletka\n" +
                     "\t3. BlackJack\n" +
-                    "\t4. Bones\n" +
+                    //"\t4. Bones\n" +
                     "\te. exit\n";
 
 
@@ -43,10 +42,10 @@ public interface GamesStart {
                     System.out.println("BlackJack");
                     BlackJack.start(account,ioInterface);
                     break;
-                case "4":
+               /* case "4":
                     System.out.println("Bones");
                     Bones.start(account,ioInterface);
-                    break;
+                    break;*/
                 case "e":
                     input="e";
                     break;

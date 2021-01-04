@@ -15,7 +15,7 @@ public class OB {
 
         String MENU_LEGEND =
                 "\tPrice 1 \n" +
-                        "\t1. Press Enter to play\n" +
+                        "\t1.  Play\n" +
                         "\te. exit\n";
 
 
@@ -29,7 +29,7 @@ public class OB {
             }
 
             switch (input) {
-                case "":
+                case "1":
                     System.out.println("\tPlay\n");
                     OB.play(account);
                     break;
@@ -62,19 +62,19 @@ public class OB {
         if (a == b && b == c) {
             win = 5 * a;
             accountService.putMoney(account, win);
-            accountService.gameToursUpdate(account,"OB","+"+(win-1));
+            accountService.gameToursUpdate(account,"OB",(win-1));
             System.out.println("\tYou Won " + (win) + '\n');
         } else if (a == b && b != c || a == c && b != c) {
             win = a;
             accountService.putMoney(account, win);
-            accountService.gameToursUpdate(account,"OB","+"+(win-1));
+            accountService.gameToursUpdate(account,"OB",(win-1));
             System.out.println("\tYou Won " + win + '\n');
         } else if (b == c && a != c) {
             win = b;
             accountService.putMoney(account, win);
-            accountService.gameToursUpdate(account,"OB","+"+(win-1));
+            accountService.gameToursUpdate(account,"OB",(win-1));
             System.out.println("\tYou Won " + win + '\n');
-        }accountService.gameToursUpdate(account,"OB","-1");
+        }accountService.gameToursUpdate(account,"OB",-1);
         System.out.println("\tBalance"+accountService.getBalance(account)+'\n');
 
 

@@ -22,9 +22,9 @@ public class Ruletka {
 
 
         String MENU_LEGEND =
-                "\tPress Enter to play\n" +
-                        "\t1. Размер ставки\n" +
-                        "\t2. Сделать ставку\n" +
+                "\t1. Play\n" +
+                        "\t2. Размер ставки\n" +
+                        "\t3. Сделать ставку\n" +
                         "\te. exit\n";
 
 
@@ -38,11 +38,11 @@ public class Ruletka {
             }
 
             switch (input) {
-                case "":
+                case "1":
                     System.out.println("\tPlay\n");
                     Ruletka.play(account);
                     break;
-                case "1":
+                case "2":
                     System.out.println("Введите размер ставки от 10 до 100");
                     int b = ioInterface.readIntValue();
                     if (b < 10 || b > 100) {
@@ -51,7 +51,7 @@ public class Ruletka {
                     }
                     betSize = b;
                     break;
-                case "2":
+                case "3":
                     Ruletka.bet(ioInterface, account);
                     break;
                 case "e":
@@ -60,6 +60,7 @@ public class Ruletka {
                         break;
                     } else {
                         System.out.println("Вы сделали ставки нажмите играть");
+                        input = "0";
                         break;
                     }
                 default:
@@ -90,7 +91,7 @@ public class Ruletka {
 
         String input = "0";
         while (!input.equals("e")) {
-            if (accountService.getBalance(account)==0) {
+            if (accountService.getBalance(account) == 0) {
                 System.err.println("Нет денег для дальнейших ставок");
                 return;
             }
@@ -313,8 +314,8 @@ public class Ruletka {
 
 
         System.out.println("Выигрыш " + resultwin);
-        if(totalwin!=0)accountService.putMoney(account, totalwin);
-        accountService.gameToursUpdate(account, "Ruletka", "" + resultwin);
+        if (totalwin != 0) accountService.putMoney(account, totalwin);
+        accountService.gameToursUpdate(account, "Ruletka",resultwin);
         bets = new
 
                 ArrayList();

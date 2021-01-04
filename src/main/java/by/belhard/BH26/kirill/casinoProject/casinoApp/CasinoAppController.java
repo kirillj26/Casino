@@ -98,7 +98,7 @@ public class CasinoAppController {
                 case "5":
                     try {
                         System.out.println("Statistic");
-                        accountService.viewMyStatistic(account);
+                        accountService.viewStatistic(account,ioInterface);
 
                     } catch (Exception e) {
                         System.err.println(e.getMessage());

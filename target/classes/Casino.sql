@@ -13,7 +13,7 @@ create table gametours (
                             gamename varchar(50) not null,
                             username varchar(50) not null ,
                             time datetime not null default now(),
-                            winlose varchar(50) not null,
+                            winlose int not null,
                             foreign key (username) references accounts(username)
 
 );
@@ -29,6 +29,38 @@ select * from accounts;
 select * from gametours;
 select * from gametours where username='Igor';
 
+select username,gamename,count(winlose) as  games,SUM(winlose) as totalwin
+from gametours
+ where  gamename='OB'
+ group by username
+ order by totalwin desc
+ LIMIT 3;
+
+ select username,gamename,count(winlose) as  games,SUM(winlose) as totalwin
+from gametours
+ group by username
+ order by totalwin desc
+ LIMIT 3;
+
+ -- drop table gametours;
+
+-- Вставка в gametours для проверки статистики
+insert into gametours values
+(null,'OB','Vasily',default, 60),
+(null,'OB','Vasily',default, -1),
+(null,'Ruletka','Vasily',default, 600),
+(null,'BlackJack','Vasily',default, 100),
+(null,'OB','Tatyana',default, 40),
+(null,'OB','Tatyana',default, -1),
+(null,'Ruletka','Tatyana',default, 300),
+(null,'BlackJack','Tatyana',default, -50),
+(null,'OB','Igor',default, 10),
+(null,'OB','Igor',default, -1),
+(null,'Ruletka','Igor',default, 100),
+(null,'BlackJack','Igor',default, 50),
+(null,'OB','Oleg',default, 2),
+(null,'OB','Oleg',default, -1),
+(null,'Ruletka','Oleg',default, 50),
+(null,'BlackJack','Oleg',default, 200);
 
 
--- drop table gametours;
