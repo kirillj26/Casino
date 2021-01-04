@@ -72,31 +72,7 @@ public class BlackJack {
                     "\nНа счету должно хватать как минимум на 7 ставок");
             return;
         }
-        class Card {
-            final String suit;
-            final int rank;
-            final char colour;
 
-            public Card(String suit, int rank, char colour) {
-                this.suit = suit;
-                this.rank = rank;
-                this.colour = colour;
-            }
-
-
-            public int getRank() {
-                return rank;
-            }
-
-            @Override
-            public String toString() {
-                return "Card{" +
-                        "suit='" + suit + '\'' +
-                        ", rank=" + rank +
-                        ", colour=" + colour +
-                        "}";
-            }
-        }
 
         final String[] SUITS = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
         final int[] RANK = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11};
